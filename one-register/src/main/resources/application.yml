@@ -1,0 +1,22 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /register
+
+spring:
+  application:
+    name: ONE-Register # 定义服务名称为 ONE-Register;
+  security:
+    user:
+      name: one
+      password: 123456
+
+eureka:
+  instance:
+    hostname: localhost # 指定了Eureka服务端的地址
+  client:
+    register-with-eureka: false # 是否将服务注册到Eureka服务端
+    fetch-registry: false # 是否从Eureka服务端获取服务信息
+    instance-info-replication-interval-seconds: 30 # 微服务更新实例信息的变化到Eureka服务端的间隔时间，单位为秒
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}${server.servlet.context-path}/eureka/ # 指定Eureka服务端的地址
