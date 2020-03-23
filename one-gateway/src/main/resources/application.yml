@@ -22,6 +22,14 @@ zuul:
       path: /auth/**
       serviceId: ONE-Auth
       sensitiveHeaders: "*"
+    system:
+      path: /system/**
+      serviceId: ONE-Server-System
+      sensitiveHeaders: "*"
+    demo:
+      path: /demo/**
+      serviceId: ONE-Server-Demo
+      sensitiveHeaders: "*"
   retryable: true
   ignored-services: "*"
   ribbon:

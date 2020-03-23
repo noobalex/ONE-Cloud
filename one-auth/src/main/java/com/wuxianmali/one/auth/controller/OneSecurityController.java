@@ -17,7 +17,7 @@ public class OneSecurityController {
     @Autowired
     private ConsumerTokenServices consumerTokenServices;
 
-    @GetMapping("oauth/test")
+    @GetMapping("oauth/demo")
     public String testOauth() {
         return "oauth";
     }
