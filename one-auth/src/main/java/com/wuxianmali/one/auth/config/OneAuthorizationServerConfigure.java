@@ -3,6 +3,7 @@ package com.wuxianmali.one.auth.config;
 import com.wuxianmali.one.auth.properties.OneAuthProperties;
 import com.wuxianmali.one.auth.properties.OneClientsProperties;
 import com.wuxianmali.one.auth.service.OneUserDetailService;
+import com.wuxianmali.one.auth.translator.OneWebResponseExceptionTranslator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class OneAuthorizationServerConfigure extends AuthorizationServerConfigur
     private PasswordEncoder passwordEncoder;
     @Autowired
     private OneAuthProperties authProperties;
+    @Autowired
+    private OneWebResponseExceptionTranslator exceptionTranslator;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -62,11 +65,13 @@ public class OneAuthorizationServerConfigure extends AuthorizationServerConfigur
     }
 
     @Override
+    @SuppressWarnings("all")
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore())
                 .userDetailsService(userDetailService)
                 .authenticationManager(authenticationManager)
-                .tokenServices(defaultTokenServices());
+                .tokenServices(defaultTokenServices())
+                .exceptionTranslator(exceptionTranslator);
     }
 
     @Bean
