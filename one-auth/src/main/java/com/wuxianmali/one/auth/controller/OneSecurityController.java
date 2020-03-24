@@ -17,10 +17,10 @@ public class OneSecurityController {
     @Autowired
     private ConsumerTokenServices consumerTokenServices;
 
-    @GetMapping("oauth/demo")
-    public String testOauth() {
-        return "oauth";
-    }
+//    @GetMapping("oauth/demo")
+//    public String testOauth() {
+//        return "oauth";
+//    }
 
     @GetMapping("user")
     public Principal currentUser(Principal principal) {
