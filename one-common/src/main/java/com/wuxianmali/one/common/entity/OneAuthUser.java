@@ -1,22 +1,49 @@
 package com.wuxianmali.one.common.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
 
 @Data
-public class OneAuthUser implements Serializable {
-    private static final long serialVersionUID = -4747403470403786593L;
+@EqualsAndHashCode(callSuper = true)
+public class OneAuthUser extends User {
 
-    private String username;
+    private static final long serialVersionUID = 3044173418775083664L;
 
-    private String password;
+    private Long userId;
 
-    private boolean accountNonExpired = true;
+    private String avatar;
 
-    private boolean accountNonLocked= true;
+    private String email;
 
-    private boolean credentialsNonExpired= true;
+    private String mobile;
 
-    private boolean enabled= true;
+    private String sex;
+
+    private Long deptId;
+
+    private String deptName;
+
+    private String roleId;
+
+    private String roleName;
+
+    private Date lastLoginTime;
+
+    private String description;
+
+    private String status;
+
+    public OneAuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
+
+    public OneAuthUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    }
 }

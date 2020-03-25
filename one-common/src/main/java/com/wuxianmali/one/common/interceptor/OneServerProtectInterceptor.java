@@ -23,10 +23,10 @@ public class OneServerProtectInterceptor implements HandlerInterceptor {
         if (StringUtils.equals(zuulToken, token)) {
             return true;
         } else {
-            OneResponse febsResponse = new OneResponse();
+            OneResponse oneResponse = new OneResponse();
             response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write(JSONObject.toJSONString(febsResponse.message("请通过网关获取资源")));
+            response.getWriter().write(JSONObject.toJSONString(oneResponse.message("请通过网关获取资源")));
             return false;
         }
     }

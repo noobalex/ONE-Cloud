@@ -2,6 +2,7 @@ package com.wuxianmali.one.auth;
 
 import com.wuxianmali.one.common.annotation.EnableOneAuthExceptionHandler;
 import com.wuxianmali.one.common.annotation.EnableOneServerProtect;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -10,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableOneAuthExceptionHandler
 @EnableOneServerProtect
+@MapperScan("com.wuxianmali.one.auth.mapper")
 public class OneAuthApplication {
 
     public static void main(String[] args) {

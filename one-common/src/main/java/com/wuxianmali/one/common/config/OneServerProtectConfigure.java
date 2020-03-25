@@ -18,12 +18,12 @@ public class OneServerProtectConfigure implements WebMvcConfigurer {
     }
 
     @Bean
-    public HandlerInterceptor febsServerProtectInterceptor() {
+    public HandlerInterceptor oneServerProtectInterceptor() {
         return new OneServerProtectInterceptor();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(febsServerProtectInterceptor());
+        registry.addInterceptor(oneServerProtectInterceptor());
     }
 }
