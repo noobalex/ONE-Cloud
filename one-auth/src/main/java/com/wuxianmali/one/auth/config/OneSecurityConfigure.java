@@ -1,5 +1,6 @@
 package com.wuxianmali.one.auth.config;
 
+import com.wuxianmali.one.auth.filter.ValidateCodeFilter;
 import com.wuxianmali.one.auth.service.OneUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,15 +11,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Order(2)
 @EnableWebSecurity
 public class OneSecurityConfigure extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private OneUserDetailService userDetailService;
 
     @Autowired
+    private OneUserDetailService userDetailService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
 
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -27,7 +31,8 @@ public class OneSecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers()
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .requestMatchers()
                 .antMatchers("/oauth/**")
                 .and()
                 .authorizeRequests()
