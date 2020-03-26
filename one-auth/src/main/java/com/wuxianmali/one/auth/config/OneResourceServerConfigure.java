@@ -1,7 +1,9 @@
 package com.wuxianmali.one.auth.config;
 
+import com.wuxianmali.one.auth.properties.OneAuthProperties;
 import com.wuxianmali.one.common.handler.OneAccessDeniedHandler;
 import com.wuxianmali.one.common.handler.OneAuthExceptionEntryPoint;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,14 +19,21 @@ public class OneResourceServerConfigure extends ResourceServerConfigurerAdapter 
     private OneAuthExceptionEntryPoint authExceptionEntryPoint;
     @Autowired
     private OneAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private OneAuthProperties properties;
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+
+        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
+
         httpSecurity.csrf().disable()
                 .requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").authenticated();
+                .antMatchers(anonUrls).permitAll()
+                .antMatchers("/**").authenticated()
+                .and().httpBasic();
     }
 
     @Override
