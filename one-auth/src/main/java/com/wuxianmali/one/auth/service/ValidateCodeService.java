@@ -64,7 +64,7 @@ public class ValidateCodeService {
     }
 
     private Captcha createCaptcha(OneValidateCodeProperties code) {
-        Captcha captcha = null;
+        Captcha captcha;
         if (StringUtils.equalsIgnoreCase(code.getType(), OneConstant.GIF)) {
             captcha = new GifCaptcha(code.getWidth(), code.getHeight(), code.getLength());
         } else {
