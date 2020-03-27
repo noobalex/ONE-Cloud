@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,4 +40,9 @@ public class OneUserDetailService implements UserDetailsService {
         }
     }
 
+    public static void main(String[] args) {
+        String pwd = "qwer1234";
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode(pwd));
+    }
 }
