@@ -2,6 +2,8 @@ package com.wuxianmali.one.server.system.config;
 
 import com.wuxianmali.one.common.handler.OneAccessDeniedHandler;
 import com.wuxianmali.one.common.handler.OneAuthExceptionEntryPoint;
+import com.wuxianmali.one.server.system.properties.OneServerSystemProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,14 +19,21 @@ public class OneServerSystemResourceServerConfigure extends ResourceServerConfig
     private OneAuthExceptionEntryPoint authExceptionEntryPoint;
     @Autowired
     private OneAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private OneServerSystemProperties properties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+        String[] ignoredUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getIgnoredUrl(), ",");
         http.csrf().disable()
-                .requestMatchers().antMatchers("/**")
+                .requestMatchers()
+                .antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").authenticated();
+                .antMatchers(ignoredUrls).permitAll()
+                .antMatchers("/**")
+                .authenticated();
     }
 
     @Override
