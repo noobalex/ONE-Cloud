@@ -6,6 +6,12 @@ spring:
     name: ONE-Gateway
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  boot:
+    admin:
+      client:
+        url: http://localhost:8401
+        username: one
+        password: 123456
 
 eureka:
   instance:
@@ -43,3 +49,18 @@ zuul:
 
 ribbon:
   ReadTimeout: 3000
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

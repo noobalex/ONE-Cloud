@@ -25,13 +25,13 @@ public class OneResourceServerConfigure extends ResourceServerConfigurerAdapter 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
 
-        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
+        String[] ignoredUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getIgnoredUrl(), ",");
 
         httpSecurity.csrf().disable()
                 .requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers(anonUrls).permitAll()
+                .antMatchers(ignoredUrls).permitAll()
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();
     }

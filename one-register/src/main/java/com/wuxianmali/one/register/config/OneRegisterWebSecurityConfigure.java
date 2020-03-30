@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class OneRegisterWebSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().ignoringAntMatchers("/eureka/**");
+        httpSecurity.csrf().ignoringAntMatchers("/eureka/**")
+                    .and()
+                    .authorizeRequests().antMatchers("/actuator/**").permitAll();
         super.configure(httpSecurity);
     }
 }

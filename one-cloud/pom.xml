@@ -13,6 +13,7 @@
         <module>../one-auth</module>
         <module>../one-gateway</module>
         <module>../one-server</module>
+        <module>../one-monitor</module>
     </modules>
     <packaging>pom</packaging><!--指定packaging为pom，表示这是一个纯聚合模块，无需打包为jar或者war-->
 
