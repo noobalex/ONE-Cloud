@@ -12,3 +12,4 @@ public interface IHelloService {
     @GetMapping("hello")
     String hello(@RequestParam("name") String name);
 }
+
